@@ -6,7 +6,7 @@ import Input from "../../components/Tools/Input/Input";
 import ButtonRed from "../../components/Tools/Buttons/ButtonRed";
 
 const Login = ({ connexionStatus, redirectPath, setRedirectPath }) => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
@@ -15,10 +15,10 @@ const Login = ({ connexionStatus, redirectPath, setRedirectPath }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/login",
-        { email: email, password: password }
-      );
+      const response = await axios.post("http://localhost:3000/user/login", {
+        username: username,
+        password: password,
+      });
       //console.log(response.data);
       const token = response.data.token;
       if (token) {
@@ -34,8 +34,7 @@ const Login = ({ connexionStatus, redirectPath, setRedirectPath }) => {
     } catch (error) {
       console.log(error.response.data.message);
       if (
-        error.response.data.message === "User not found" ||
-        error.response.data.message === "Unauthorized"
+        error.response.data.message === "Username ou mot de passe incorrect !"
       ) {
         setError("Email ou mot de passe incorrect");
       } else {
@@ -53,13 +52,13 @@ const Login = ({ connexionStatus, redirectPath, setRedirectPath }) => {
 
         <Input
           className="inputConnect"
-          id="email"
-          type="email"
-          placeholder="Email"
-          name="email"
-          value={email}
+          id="username"
+          type="text"
+          placeholder="Username"
+          name="username"
+          value={username}
           onChange={(event) => {
-            setEmail(event.target.value);
+            setUsername(event.target.value);
           }}
         />
         <Input

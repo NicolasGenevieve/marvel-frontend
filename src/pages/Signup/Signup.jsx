@@ -17,14 +17,11 @@ const Signup = ({ connexionStatus }) => {
     event.preventDefault();
     try {
       setError(null);
-      const response = await axios.post(
-        "https://lereacteur-vinted-api.herokuapp.com/user/signup",
-        {
-          email: email,
-          username: username,
-          password: password,
-        }
-      );
+      const response = await axios.post("http://localhost:3000/user/signup", {
+        email: email,
+        username: username,
+        password: password,
+      });
       console.log("réponse du serveur", response.data);
 
       const token = response.data.token;
@@ -35,13 +32,16 @@ const Signup = ({ connexionStatus }) => {
         setError("Une erreur est survenue, veuillez réessayer");
       }
     } catch (error) {
+      console.log(error.response.data);
       console.log(error);
-      if (error.response?.data?.message === "Missing parameters") {
-        setError("Veuillez remplir tous les champs");
+      if (error.response?.data === "Veuillez entrer un username") {
+        setError("Veuillez entrer un username");
+      } else if (error.response?.data === "Veuillez entrer un email valide") {
+        setError("Veuillez entrer un email valide");
       } else if (
-        error.response?.data?.message === "This email already has an account"
+        error.response?.data === "Veuillez entrer un mot de passe valide"
       ) {
-        setError("Cet email est déjà utilisé");
+        setError("Veuillez entrer un mot de passe valide");
       } else {
         setError("Une erreur est survenue, veuillez réessayer");
       }

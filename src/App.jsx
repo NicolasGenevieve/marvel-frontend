@@ -1,5 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 // Pages :
 import Home from "./pages/Home/Home.jsx";
@@ -9,24 +11,43 @@ import Comics from "./pages/Comics/Comics.jsx";
 import Comic from "./pages/Comic/Comic.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
+import All from "./pages/All/All.jsx";
 
 // Components :
 import Header from "./components/Header/Header.jsx";
 import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
 
 function App() {
+  const [token, setToken] = useState(Cookies.get("marvel-token") || null);
+
+  const connexionStatus = (token) => {
+    if (token) {
+      Cookies.set("marvel-token", token, { expires: 14 });
+    } else {
+      Cookies.remove("marvel-token");
+    }
+    setToken(token);
+  };
+
   return (
     <Router>
       <ScrollToTop />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/characters" element={<Characters />} />
-        <Route path="/characters/:id" element={<Character />} />
-        <Route path="/comics" element={<Comics />} />
-        <Route path="/comics/comic/:id" element={<Comic />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/characters" element={<Characters token={token} />} />
+        <Route path="/characters/:id" element={<Character token={token} />} />
+        <Route path="/comics" element={<Comics token={token} />} />
+        <Route path="/comics/comic/:id" element={<Comic token={token} />} />
+        <Route
+          path="/login"
+          element={<Login connexionStatus={connexionStatus} />}
+        />
+        <Route
+          path="/signup"
+          element={<Signup connexionStatus={connexionStatus} />}
+        />
+        <Route path="*" element={<All />} />
       </Routes>
     </Router>
   );

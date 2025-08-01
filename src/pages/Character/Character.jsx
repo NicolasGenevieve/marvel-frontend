@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import Loader from "../../components/Tools/Loader/Loader";
 import Article from "../../components/Tools/Article/Article";
 import Footer from "../../components/Footer/Footer";
+import { Navigate } from "react-router-dom";
 import Presentation from "../../components/Tools/Presentation/Presentation";
 
-const Character = () => {
+const Character = ({ token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [comicDetails, setComicDetails] = useState([]);
@@ -52,9 +53,14 @@ const Character = () => {
 
   //console.log(comicDetails);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return (
     <>
       <main>
         <div className="container">

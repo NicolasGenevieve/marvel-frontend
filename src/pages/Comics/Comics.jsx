@@ -6,8 +6,9 @@ import Finder from "../../components/Tools/Finder/Finder";
 import Filters from "../../components/Tools/Filters/Filters";
 import Article from "../../components/Tools/Article/Article";
 import Footer from "../../components/Footer/Footer";
+import { Navigate } from "react-router-dom";
 
-const Comics = () => {
+const Comics = ({ token }) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -41,9 +42,14 @@ const Comics = () => {
 
   const totalPages = Math.ceil(totalCount / limit);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return (
     <>
       <main>
         <div className="container">

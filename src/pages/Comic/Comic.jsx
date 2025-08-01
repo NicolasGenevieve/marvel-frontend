@@ -4,9 +4,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Loader from "../../components/Tools/Loader/Loader";
 import Footer from "../../components/Footer/Footer";
+import { Navigate } from "react-router-dom";
 import Presentation from "../../components/Tools/Presentation/Presentation";
 
-const Comic = () => {
+const Comic = ({ token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -30,9 +31,14 @@ const Comic = () => {
 
   // console.log(data.name);
 
-  return isLoading ? (
-    <Loader />
-  ) : (
+  if (!token) {
+    return <Navigate to="/login" />;
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  return (
     <>
       <main>
         <div className="container">
