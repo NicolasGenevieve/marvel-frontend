@@ -1,0 +1,10 @@
+.brand {
+  height: 55px;
+  /* border: solid 3px red; */
+  font-size: 20px;
+}
+
+.brand img {
+  object-fit: cover;
+  height: 100%;
+}

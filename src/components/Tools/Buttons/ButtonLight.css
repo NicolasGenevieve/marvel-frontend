@@ -1,0 +1,33 @@
+.bigLight {
+  background-color: transparent;
+  color: white;
+  border: 3px solid white;
+  padding: 20px 40px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.bigLight:hover {
+  cursor: pointer;
+  background-color: #ee171f;
+  border: 3px solid #ee171f;
+  color: white;
+}
+
+.smallLight {
+  background-color: transparent;
+  color: white;
+  border: 3px solid white;
+  padding: 10px 20px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.smallLight:hover {
+  cursor: pointer;
+  background-color: #ee171f;
+  border: 3px solid #ee171f;
+  color: white;
+}

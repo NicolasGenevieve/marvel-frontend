@@ -1,0 +1,24 @@
+header {
+  height: 120px;
+  width: 100%;
+  /* border: solid 3px blue; : */
+  display: flex;
+  align-items: center;
+  background-color: black;
+  position: relative;
+  z-index: 3;
+  color: white;
+}
+
+.headerWrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonWrap {
+  /* border: solid 3px white; */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}

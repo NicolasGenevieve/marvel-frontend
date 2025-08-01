@@ -1,0 +1,44 @@
+.bigRed {
+  background-color: #ee171f;
+  color: white;
+  border: none;
+  padding: 20px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border: 3px solid #ee171f;
+}
+
+.bigRed:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 3px solid white;
+}
+
+.smallRed {
+  background-color: #ee171f;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border: 3px solid #ee171f;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.smallRed:hover {
+  cursor: pointer;
+  background-color: transparent;
+  color: white;
+  border: 3px solid white;
+}
+
+.smallRed:disabled {
+  opacity: 0.5;
+  cursor: default;
+  pointer-events: none;
+}

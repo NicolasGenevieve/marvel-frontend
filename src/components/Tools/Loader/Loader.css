@@ -1,0 +1,13 @@
+.loadWrap {
+  /* border: 3px solid red; */
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.load {
+  background-color: black;
+  height: 100vh;
+}

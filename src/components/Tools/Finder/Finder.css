@@ -1,0 +1,48 @@
+.finder {
+  border: none;
+  width: 300px;
+  background-color: transparent;
+  border-bottom: white solid 1px;
+  height: 30px;
+  color: white;
+}
+
+.finder:focus {
+  outline: none;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* border: red 3px solid; */
+}
+
+.suggestionsWrap {
+  min-width: 300px;
+}
+
+.page {
+  min-width: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.searchWrap {
+  display: flex;
+  gap: 30px;
+  /* border: green 3px solid; */
+}
+
+.suggestions {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 12px;
+}
+
+.suggestion:hover {
+  color: #ee171f;
+  cursor: pointer;
+}

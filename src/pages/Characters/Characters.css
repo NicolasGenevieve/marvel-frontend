@@ -1,0 +1,17 @@
+.titleCharacters {
+  display: flex;
+  border-bottom: 3px solid #ee171f;
+  justify-content: center;
+  padding: 40px;
+  font-size: 40px;
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+
+.filterWrap {
+  display: flex;
+  /* border: blue 3px solid; */
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}

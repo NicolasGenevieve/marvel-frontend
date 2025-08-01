@@ -1,0 +1,18 @@
+.titleComic {
+  display: flex;
+  border-top: 3px solid #ee171f;
+  justify-content: center;
+  padding: 40px;
+  font-size: 40px;
+  font-weight: 900;
+  margin: 30px 0;
+}
+
+.comicWrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  /* border: yellow solid 3px; */
+}

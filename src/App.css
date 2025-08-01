@@ -1,0 +1,23 @@
+body,
+button,
+textarea {
+  font-family: "Roboto Condensed", sans-serif;
+  background-color: black;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  /* border: orange 3px solid; */
+  width: 100%;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  background-color: black;
+  color: white;
+}
