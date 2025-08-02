@@ -7,6 +7,7 @@ import Footer from "../../components/Footer/Footer";
 import { FaTrashAlt } from "react-icons/fa";
 import handleDeleteComic from "../../Functions/HandleDeleteFavoris/handleDeleteComic";
 import handleDeleteCharacter from "../../Functions/HandleDeleteFavoris/handleDeleteCharacter";
+import { Navigate } from "react-router-dom";
 
 const Favoris = ({ token }) => {
   const [comics, setComics] = useState([]);
@@ -53,7 +54,7 @@ const Favoris = ({ token }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,7 +75,7 @@ const Favoris = ({ token }) => {
       }
     };
     fetchData();
-  }, []);
+  }, [token]);
 
   const deleteComic = async (id) => {
     try {
