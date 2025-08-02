@@ -28,7 +28,7 @@ const Comic = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comics/comic/${id}`,
+          `${import.meta.env.VITE_API_URL}comics/comic/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -51,7 +51,7 @@ const Comic = ({ token }) => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/favoris/comics",
+          `${import.meta.env.VITE_API_URL}favoris/comics`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

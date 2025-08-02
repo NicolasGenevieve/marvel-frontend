@@ -27,7 +27,9 @@ const Finder = ({
       try {
         const encodedValue = encodeURIComponent(value);
         const response = await axios.get(
-          `http://localhost:3000/${type}?${searchKey}=${encodedValue}&limit=5`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/${type}?${searchKey}=${encodedValue}&limit=5`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

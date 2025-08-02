@@ -17,11 +17,14 @@ const Signup = ({ connexionStatus }) => {
     event.preventDefault();
     try {
       setError(null);
-      const response = await axios.post("http://localhost:3000/user/signup", {
-        email: email,
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/user/signup`,
+        {
+          email: email,
+          username: username,
+          password: password,
+        }
+      );
       console.log("réponse du serveur", response.data);
 
       const token = response.data.token;

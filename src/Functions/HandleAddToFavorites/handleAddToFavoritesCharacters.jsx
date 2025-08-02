@@ -3,7 +3,7 @@ import axios from "axios";
 const handleAddToFavoritesCharacters = async (data, token) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/favoris/characters",
+      `${import.meta.env.VITE_API_URL}/favoris/characters`,
       {
         characterId: data._id,
         name: data.name,

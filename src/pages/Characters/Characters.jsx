@@ -21,7 +21,9 @@ const Characters = ({ token }) => {
       try {
         const skip = (page - 1) * limit;
         const response = await axios.get(
-          `http://localhost:3000/characters?&name=${name}&skip=${skip}&limit=${limit}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/characters?&name=${name}&skip=${skip}&limit=${limit}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

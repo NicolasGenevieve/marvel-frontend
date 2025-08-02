@@ -30,7 +30,7 @@ const Character = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/character/${id}`,
+          `${import.meta.env.VITE_API_URL}/character/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -54,7 +54,7 @@ const Character = ({ token }) => {
       try {
         if (data.comics && data.comics.length > 0) {
           const mappingComics = data.comics.map((id) =>
-            axios.get(`http://localhost:3000/comics/comic/${id}`)
+            axios.get(`${import.meta.env.VITE_API_URL}/comics/comic/${id}`)
           );
           const responses = await Promise.all(mappingComics);
           const comicsData = responses.map((res) => res.data);
@@ -73,7 +73,7 @@ const Character = ({ token }) => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/favoris/characters",
+          `${import.meta.env.VITE_API_URL}favoris/characters`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -17,11 +17,14 @@ const Favoris = ({ token }) => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/user/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/user/profile`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         setUsername(response.data.username);
       } catch (error) {
         console.log(error.response?.data || error.message);
@@ -35,7 +38,7 @@ const Favoris = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/favoris/comics",
+          `${import.meta.env.VITE_API_URL}/favoris/comics`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -56,7 +59,7 @@ const Favoris = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3000/favoris/characters",
+          `${import.meta.env.VITE_API_URL}/favoris/characters`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

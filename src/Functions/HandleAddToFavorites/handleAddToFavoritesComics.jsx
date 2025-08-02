@@ -3,7 +3,7 @@ import axios from "axios";
 const handleAddToFavoritesComics = async (data, token) => {
   try {
     const response = await axios.post(
-      "http://localhost:3000/favoris/comics",
+      `${import.meta.env.VITE_API_URL}/favoris/comics`,
       {
         comicId: data._id,
         title: data.title,

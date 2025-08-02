@@ -24,7 +24,9 @@ const Comics = ({ token }) => {
         const skip = (page - 1) * limit;
         const encodedTitle = encodeURIComponent(title);
         const response = await axios.get(
-          `http://localhost:3000/comics?&title=${encodedTitle}&skip=${skip}&limit=${limit}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/comics?&title=${encodedTitle}&skip=${skip}&limit=${limit}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +45,7 @@ const Comics = ({ token }) => {
       }
     };
     fetchData();
-  }, [limit, title, page]);
+  }, [limit, title, page, token]);
 
   const handleGoToPage = () => {
     const num = parseInt(goToPage, 10);

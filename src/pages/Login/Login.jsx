@@ -15,10 +15,13 @@ const Login = ({ connexionStatus, redirectPath, setRedirectPath }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/user/login", {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/user/login`,
+        {
+          username: username,
+          password: password,
+        }
+      );
       //console.log(response.data);
       const token = response.data.token;
       if (token) {
