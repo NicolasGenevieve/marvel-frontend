@@ -14,6 +14,7 @@ const Presentation = ({
   titleLight,
   onclickFav,
   isFavoris,
+  isClicking,
 }) => {
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const Presentation = ({
               size="smallRed"
               icon={<FaHeart />}
               onClick={onclickFav}
+              disabled={isClicking}
             />
           )}
 

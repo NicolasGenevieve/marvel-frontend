@@ -12,15 +12,19 @@ const Comic = ({ token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isFavoris, setIsFavoris] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   const { id } = useParams();
 
   const handleFavoris = async () => {
     try {
+      setIsClicking(true);
       await handleAddToFavoritesComics(data, token);
       setIsFavoris(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsClicking(false);
     }
   };
 
@@ -28,7 +32,7 @@ const Comic = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}comics/comic/${id}`,
+          `${import.meta.env.VITE_API_URL}/comics/comic/${id}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -43,7 +47,7 @@ const Comic = ({ token }) => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id, token]);
 
   // console.log(data.name);
 
@@ -51,7 +55,7 @@ const Comic = ({ token }) => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}favoris/comics`,
+          `${import.meta.env.VITE_API_URL}/favoris/comics`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -90,6 +94,7 @@ const Comic = ({ token }) => {
             titleLight="Retour aux comics"
             onclickFav={handleFavoris}
             isFavoris={isFavoris}
+            isClicking={isClicking}
           />
         </div>
       </main>

@@ -14,15 +14,19 @@ const Character = ({ token }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [comicDetails, setComicDetails] = useState([]);
   const [isFavoris, setIsFavoris] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   const { id } = useParams();
 
   const handleFavoris = async () => {
     try {
+      setIsClicking(true);
       await handleAddToFavoritesCharacters(data, token);
       setIsFavoris(true);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsClicking(false);
     }
   };
 
@@ -45,7 +49,7 @@ const Character = ({ token }) => {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id, token]);
 
   // console.log(data.name);
 
@@ -54,7 +58,11 @@ const Character = ({ token }) => {
       try {
         if (data.comics && data.comics.length > 0) {
           const mappingComics = data.comics.map((id) =>
-            axios.get(`${import.meta.env.VITE_API_URL}/comics/comic/${id}`)
+            axios.get(`${import.meta.env.VITE_API_URL}/comics/comic/${id}`, {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            })
           );
           const responses = await Promise.all(mappingComics);
           const comicsData = responses.map((res) => res.data);
@@ -65,7 +73,7 @@ const Character = ({ token }) => {
       }
     };
     fetchComics();
-  }, [data.comics]);
+  }, [data.comics, token]);
 
   //console.log(comicDetails);
 
@@ -73,7 +81,7 @@ const Character = ({ token }) => {
     const fetchFavorites = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}favoris/characters`,
+          `${import.meta.env.VITE_API_URL}/favoris/characters`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -112,6 +120,7 @@ const Character = ({ token }) => {
             titleLight="Retour aux personnages"
             onclickFav={handleFavoris}
             isFavoris={isFavoris}
+            isClicking={isClicking}
           />
 
           <h3 className="titleComic">{`Comics de ${data.name}`}</h3>
