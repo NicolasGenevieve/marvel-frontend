@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { FaHeart } from "react-icons/fa";
 import { FaPowerOff } from "react-icons/fa";
 
-const Header = ({ token, connexionStatus }) => {
+const Header = ({ token, connexionStatus, setRedirectPath }) => {
   const navigate = useNavigate();
   return (
     <>
@@ -21,13 +21,23 @@ const Header = ({ token, connexionStatus }) => {
                   <ButtonSimple
                     title="Les Personnages"
                     onClick={() => {
-                      navigate("/characters");
+                      if (token) {
+                        navigate("/characters");
+                      } else {
+                        setRedirectPath("/characters");
+                        navigate("/login");
+                      }
                     }}
                   />
                   <ButtonSimple
                     title="Les Comics"
                     onClick={() => {
-                      navigate("/comics");
+                      if (token) {
+                        navigate("/comics");
+                      } else {
+                        setRedirectPath("/comics");
+                        navigate("/login");
+                      }
                     }}
                   />
                   <ButtonLight
@@ -35,7 +45,12 @@ const Header = ({ token, connexionStatus }) => {
                     size="smallLight"
                     icon={<FaHeart />}
                     onClick={() => {
-                      navigate("/favoris");
+                      if (token) {
+                        navigate("/favoris");
+                      } else {
+                        setRedirectPath("/favoris");
+                        navigate("/login");
+                      }
                     }}
                   />
                   <ButtonRed

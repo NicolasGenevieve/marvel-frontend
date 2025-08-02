@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Cookies from "js-cookie";
+import axios from "axios";
 
 // Pages :
 import Home from "./pages/Home/Home.jsx";
@@ -31,10 +32,25 @@ function App() {
     setToken(token);
   };
 
+  axios.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        window.location.href = "/login"; // ou useNavigate si dans un composant
+      }
+      return Promise.reject(error);
+    }
+  );
+
   return (
     <Router>
       <ScrollToTop />
-      <Header token={token} connexionStatus={connexionStatus} />
+      <Header
+        token={token}
+        connexionStatus={connexionStatus}
+        setRedirectPath={setRedirectPath}
+      />
       <Routes>
         <Route
           path="/"

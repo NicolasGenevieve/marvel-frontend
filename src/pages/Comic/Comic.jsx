@@ -28,7 +28,12 @@ const Comic = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/comics/comic/${id}`
+          `http://localhost:3000/comics/comic/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         // console.log(response.data);
         setData(response.data);

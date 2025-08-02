@@ -24,7 +24,12 @@ const Comics = ({ token }) => {
         const skip = (page - 1) * limit;
         const encodedTitle = encodeURIComponent(title);
         const response = await axios.get(
-          `http://localhost:3000/comics?&title=${encodedTitle}&skip=${skip}&limit=${limit}`
+          `http://localhost:3000/comics?&title=${encodedTitle}&skip=${skip}&limit=${limit}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setData(response.data);
         setTotalCount(response.data.count);
@@ -89,6 +94,7 @@ const Comics = ({ token }) => {
               setPage={setPage}
               placeholder="Rechercher un comic..."
               searchKey="title"
+              token={token}
             />
           </div>
           <div className="cardWrap">

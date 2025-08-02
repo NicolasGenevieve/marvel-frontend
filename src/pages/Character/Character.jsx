@@ -30,7 +30,12 @@ const Character = ({ token }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/character/${id}`
+          `http://localhost:3000/character/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         // console.log(response.data);
         setData(response.data);

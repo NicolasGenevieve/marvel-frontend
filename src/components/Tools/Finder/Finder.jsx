@@ -4,7 +4,15 @@ import { IoSearch } from "react-icons/io5";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Finder = ({ type, title, setTitle, setPage, placeholder, searchKey }) => {
+const Finder = ({
+  type,
+  title,
+  setTitle,
+  setPage,
+  placeholder,
+  searchKey,
+  token,
+}) => {
   const [suggestions, setSuggestions] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +27,12 @@ const Finder = ({ type, title, setTitle, setPage, placeholder, searchKey }) => {
       try {
         const encodedValue = encodeURIComponent(value);
         const response = await axios.get(
-          `http://localhost:3000/${type}?${searchKey}=${encodedValue}&limit=5`
+          `http://localhost:3000/${type}?${searchKey}=${encodedValue}&limit=5`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setSuggestions(response.data?.results || []);
       } catch (error) {

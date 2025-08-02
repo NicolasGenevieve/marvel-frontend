@@ -21,7 +21,12 @@ const Characters = ({ token }) => {
       try {
         const skip = (page - 1) * limit;
         const response = await axios.get(
-          `http://localhost:3000/characters?&name=${name}&skip=${skip}&limit=${limit}`
+          `http://localhost:3000/characters?&name=${name}&skip=${skip}&limit=${limit}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         setData(response.data);
         setTotalCount(response.data.count);
@@ -35,7 +40,7 @@ const Characters = ({ token }) => {
       }
     };
     fetchData();
-  }, [limit, name, page]);
+  }, [limit, name, page, token]);
 
   const totalPages = Math.ceil(totalCount / limit);
 
@@ -60,6 +65,7 @@ const Characters = ({ token }) => {
               setPage={setPage}
               placeholder="Rechercher un personnage..."
               searchKey="name"
+              token={token}
             />
           </div>
           <div className="cardWrap">
