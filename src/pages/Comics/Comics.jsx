@@ -6,6 +6,7 @@ import Finder from "../../components/Tools/Finder/Finder";
 import Filters from "../../components/Tools/Filters/Filters";
 import Article from "../../components/Tools/Article/Article";
 import Footer from "../../components/Footer/Footer";
+import ButtonRed from "../../components/Tools/Buttons/ButtonRed";
 import { Navigate } from "react-router-dom";
 
 const Comics = ({ token }) => {
@@ -14,8 +15,8 @@ const Comics = ({ token }) => {
   const [page, setPage] = useState(1);
   const [limit] = useState(100);
   const [totalCount, setTotalCount] = useState(0);
-  const [results, setResults] = useState([]);
   const [title, setTitle] = useState("");
+  const [goToPage, setGoToPage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +28,6 @@ const Comics = ({ token }) => {
         );
         setData(response.data);
         setTotalCount(response.data.count);
-        setResults(response.data?.results || []);
         setIsLoading(false);
         // console.log(skip);
         // console.log(response.data.results);
@@ -39,6 +39,15 @@ const Comics = ({ token }) => {
     };
     fetchData();
   }, [limit, title, page]);
+
+  const handleGoToPage = () => {
+    const num = parseInt(goToPage, 10);
+    if (!isNaN(num) && num >= 1 && num <= totalPages) {
+      setPage(num);
+    } else {
+      alert(`Numéro de page invalide (entre 1 et ${totalPages})`);
+    }
+  };
 
   const totalPages = Math.ceil(totalCount / limit);
 
@@ -56,6 +65,23 @@ const Comics = ({ token }) => {
           <h1 className="titleComics">Liste des comics</h1>
           <div className="filterWrap">
             <Filters setPage={setPage} page={page} totalPages={totalPages} />
+            <div className="goToPageWrap">
+              <input
+                className="finder"
+                type="number"
+                placeholder="Page..."
+                value={goToPage}
+                onChange={(e) => setGoToPage(e.target.value)}
+                min={1}
+                max={totalPages}
+                style={{ width: "80px", marginRight: "10px" }}
+              />
+              <ButtonRed
+                title="Go to page"
+                size="smallRed"
+                onClick={handleGoToPage}
+              />
+            </div>
             <Finder
               type="comics"
               title={title}
@@ -66,7 +92,7 @@ const Comics = ({ token }) => {
             />
           </div>
           <div className="cardWrap">
-            {results.map((comic) => {
+            {data.results.map((comic) => {
               return (
                 <Article
                   key={comic._id}
@@ -75,6 +101,7 @@ const Comics = ({ token }) => {
                   alt={comic.title}
                   title={comic.title}
                   description={comic.description}
+                  className="card"
                 />
               );
             })}

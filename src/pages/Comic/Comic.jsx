@@ -6,12 +6,23 @@ import Loader from "../../components/Tools/Loader/Loader";
 import Footer from "../../components/Footer/Footer";
 import { Navigate } from "react-router-dom";
 import Presentation from "../../components/Tools/Presentation/Presentation";
+import handleAddToFavoritesComics from "../../Functions/HandleAddToFavorites/handleAddToFavoritesComics";
 
 const Comic = ({ token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isFavoris, setIsFavoris] = useState(false);
 
   const { id } = useParams();
+
+  const handleFavoris = async () => {
+    try {
+      await handleAddToFavoritesComics(data, token);
+      setIsFavoris(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +41,28 @@ const Comic = ({ token }) => {
   }, [id]);
 
   // console.log(data.name);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/favoris/comics",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response.data);
+
+        const alreadyAdd = response.data.some((fav) => fav.comicId === id);
+        setIsFavoris(alreadyAdd);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFavorites();
+  }, [id, token]);
 
   if (!token) {
     return <Navigate to="/login" />;
@@ -50,6 +83,8 @@ const Comic = ({ token }) => {
             descritpion={data.descritpion}
             navigation="/comics"
             titleLight="Retour aux comics"
+            onclickFav={handleFavoris}
+            isFavoris={isFavoris}
           />
         </div>
       </main>

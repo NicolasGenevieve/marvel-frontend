@@ -1,0 +1,18 @@
+.buttonSimple {
+  background-color: none;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: underline;
+}
+
+.buttonSimple:hover {
+  color: #ee171f;
+  cursor: pointer;
+}

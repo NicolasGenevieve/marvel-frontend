@@ -1,9 +1,9 @@
 import "./Article.css";
 import { Link } from "react-router-dom";
 
-const Article = ({ key, link, src, alt, title, description }) => {
+const Article = ({ link, src, alt, title, description, className }) => {
   return (
-    <article className="card" key={key}>
+    <article className={className}>
       <Link className="cardLink" to={link}>
         <div className="cardImg">
           <img src={src} alt={alt} />

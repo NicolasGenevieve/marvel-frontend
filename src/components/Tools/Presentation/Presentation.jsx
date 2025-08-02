@@ -3,6 +3,7 @@ import ButtonLight from "../Buttons/ButtonLight";
 import ButtonRed from "../Buttons/ButtonRed";
 import { FaHeart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import ButtonAdded from "../Buttons/ButtonAdded";
 
 const Presentation = ({
   src,
@@ -11,6 +12,8 @@ const Presentation = ({
   description,
   navigation,
   titleLight,
+  onclickFav,
+  isFavoris,
 }) => {
   const navigate = useNavigate();
 
@@ -23,11 +26,17 @@ const Presentation = ({
         <h2 className="presTitle">{title}</h2>
         <span className="presDescription">{description}</span>
         <div style={{ display: "flex", gap: "10px" }}>
-          <ButtonRed
-            title="Ajouter aux favoris"
-            size="smallRed"
-            icon={<FaHeart />}
-          />
+          {isFavoris ? (
+            <ButtonAdded />
+          ) : (
+            <ButtonRed
+              title="Ajouter aux favoris"
+              size="smallRed"
+              icon={<FaHeart />}
+              onClick={onclickFav}
+            />
+          )}
+
           <ButtonLight
             title={titleLight}
             size="smallLight"

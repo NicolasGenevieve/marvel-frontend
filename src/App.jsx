@@ -12,13 +12,15 @@ import Comic from "./pages/Comic/Comic.jsx";
 import Login from "./pages/Login/Login.jsx";
 import Signup from "./pages/Signup/Signup.jsx";
 import All from "./pages/All/All.jsx";
+import Favoris from "./pages/Favoris/Favoris.jsx";
 
 // Components :
 import Header from "./components/Header/Header.jsx";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop.jsx";
+import ScrollToTop from "./Functions/ScrollToTop/ScrollToTop.jsx";
 
 function App() {
   const [token, setToken] = useState(Cookies.get("marvel-token") || null);
+  const [redirectPath, setRedirectPath] = useState(null);
 
   const connexionStatus = (token) => {
     if (token) {
@@ -32,21 +34,37 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Header />
+      <Header token={token} connexionStatus={connexionStatus} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={<Home token={token} setRedirectPath={setRedirectPath} />}
+        />
         <Route path="/characters" element={<Characters token={token} />} />
         <Route path="/characters/:id" element={<Character token={token} />} />
         <Route path="/comics" element={<Comics token={token} />} />
         <Route path="/comics/comic/:id" element={<Comic token={token} />} />
         <Route
           path="/login"
-          element={<Login connexionStatus={connexionStatus} />}
+          element={
+            <Login
+              connexionStatus={connexionStatus}
+              redirectPath={redirectPath}
+              setRedirectPath={setRedirectPath}
+            />
+          }
         />
         <Route
           path="/signup"
-          element={<Signup connexionStatus={connexionStatus} />}
+          element={
+            <Signup
+              connexionStatus={connexionStatus}
+              redirectPath={redirectPath}
+              setRedirectPath={setRedirectPath}
+            />
+          }
         />
+        <Route path="/favoris" element={<Favoris token={token} />} />
         <Route path="*" element={<All />} />
       </Routes>
     </Router>

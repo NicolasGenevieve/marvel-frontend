@@ -7,13 +7,24 @@ import Article from "../../components/Tools/Article/Article";
 import Footer from "../../components/Footer/Footer";
 import { Navigate } from "react-router-dom";
 import Presentation from "../../components/Tools/Presentation/Presentation";
+import handleAddToFavoritesCharacters from "../../Functions/HandleAddToFavorites/handleAddToFavoritesCharacters";
 
 const Character = ({ token }) => {
   const [data, setData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [comicDetails, setComicDetails] = useState([]);
+  const [isFavoris, setIsFavoris] = useState(false);
 
   const { id } = useParams();
+
+  const handleFavoris = async () => {
+    try {
+      await handleAddToFavoritesCharacters(data, token);
+      setIsFavoris(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,6 +64,28 @@ const Character = ({ token }) => {
 
   //console.log(comicDetails);
 
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:3000/favoris/characters",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log(response.data);
+
+        const alreadyAdd = response.data.some((fav) => fav.characterId === id);
+        setIsFavoris(alreadyAdd);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchFavorites();
+  }, [id, token]);
+
   if (!token) {
     return <Navigate to="/login" />;
   }
@@ -72,6 +105,8 @@ const Character = ({ token }) => {
             descritpion={data.descritpion}
             navigation={"/characters"}
             titleLight="Retour aux personnages"
+            onclickFav={handleFavoris}
+            isFavoris={isFavoris}
           />
 
           <h3 className="titleComic">{`Comics de ${data.name}`}</h3>
@@ -85,6 +120,7 @@ const Character = ({ token }) => {
                   alt={comic.title}
                   title={comic.title}
                   description={comic.description}
+                  className="card"
                 />
               );
             })}

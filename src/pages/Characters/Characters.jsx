@@ -14,7 +14,6 @@ const Characters = ({ token }) => {
   const [page, setPage] = useState(1);
   const [limit] = useState(100);
   const [totalCount, setTotalCount] = useState(0);
-  const [results, setResults] = useState([]);
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const Characters = ({ token }) => {
         );
         setData(response.data);
         setTotalCount(response.data.count);
-        setResults(response.data?.results || []);
         setIsLoading(false);
         // console.log(skip);
         // console.log(response.data.results);
@@ -65,7 +63,7 @@ const Characters = ({ token }) => {
             />
           </div>
           <div className="cardWrap">
-            {results.map((character) => {
+            {data.results.map((character) => {
               return (
                 <Article
                   key={character._id}
@@ -74,6 +72,7 @@ const Characters = ({ token }) => {
                   alt={character.name}
                   title={character.name}
                   description={character.description}
+                  className="card"
                 />
               );
             })}

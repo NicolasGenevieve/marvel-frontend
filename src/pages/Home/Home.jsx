@@ -4,7 +4,7 @@ import ButtonRed from "../../components/Tools/Buttons/ButtonRed";
 import ButtonLight from "../../components/Tools/Buttons/ButtonLight";
 import { useNavigate } from "react-router-dom";
 
-const Home = () => {
+const Home = ({ token, setRedirectPath }) => {
   const navigate = useNavigate();
   return (
     <div className="hero">
@@ -19,14 +19,24 @@ const Home = () => {
               title="Les Personnages"
               size="bigRed"
               onClick={() => {
-                navigate("/characters");
+                if (token) {
+                  navigate("/characters");
+                } else {
+                  setRedirectPath("/characters");
+                  navigate("/login");
+                }
               }}
             />
             <ButtonLight
               title="Les Comics"
               size="bigLight"
               onClick={() => {
-                navigate("/comics");
+                if (token) {
+                  navigate("/comics");
+                } else {
+                  setRedirectPath("/comics");
+                  navigate("/login");
+                }
               }}
             />
           </div>

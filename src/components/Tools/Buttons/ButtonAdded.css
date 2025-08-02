@@ -1,0 +1,13 @@
+.buttonAdded {
+  background-color: #700408;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  border: 3px solid #700408;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
